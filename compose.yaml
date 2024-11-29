@@ -1,0 +1,20 @@
+services:
+  app:
+    image: golang:1.23
+    container_name: app
+    volumes:
+      - type: bind
+        source: ./src
+        target: /go/src
+    tty: true
+
+  mysql:
+    image: mysql:8.0.36
+    container_name: mysql
+    ports:
+      - ":3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone=+09:00
